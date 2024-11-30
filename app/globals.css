@@ -1,21 +1,172 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Reset and Base Styles */
+div {
+  font-family: monospace; 
+  margin: 0;
+  padding: 0;
+  background-color: #f8fdfb; /* Soft greenish white for a fresh look */
+  color: #333; /* Neutral dark gray for readability */
+  line-height: 1.6;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+h1, h2, h3 {
+  color: #ffffff; /* Calming green */
+  margin-bottom: 0.5rem;
+}
+
+header > p{
+  color: #fff;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: #555;
+  font-size: 16px; /* Subtle gray for supporting text */
+}
+
+a {
+  color: #00796b; /* Teal link color */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Layout */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Buttons */
+button,
+a.button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: #2e7d32; /* Vibrant green for CTAs */
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover,
+a.button:hover {
+  background-color: #1b5e20; /* Darker green for hover effect */
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #e0f2f1; /* Light teal */
+  color: #004d40;
+  font-size: 0.9rem;
+  border-radius: 5px;
+}
+
+/* Health-Specific Imagery */
+header {
+  background-color: #6d0000; /* Soft green header */
+  padding: 2rem 1rem;
+  text-align: center;
+  color: white;
+  border-bottom: 5px solid #ff0000;
+  border-radius: 5px;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+header p {
+  font-size: 1.2rem;
+  margin: 0.5rem 0 0;
+}
+
+/* Card Styles */
+.card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Chart Container */
+.chart-container {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background-color: #e8f5e9; /* Very light green for a fresh background */
+  border: 2px solid #c8e6c9; /* Slightly darker green border */
+  border-radius: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .container {
+    padding: 1rem;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.lauzhack-logo{
+  width: 100%;
+}
+
+.charts-link{
+display: flex;
+justify-content: center;
+padding: 10px;
+margin-bottom: 10px;
+border: 3px solid #920101;
+border-radius: 5px;
+}
+
+.charts-link:hover{
+  background-color: #6d0000;
+  color: #fff;
+  transition: ease-in-out 0.2s;
+}
+
+input[type="file"]{
+  display: none;
+}
+
+.attach-file{
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #6d0000;
+  border-radius: 10px;
+  color: #fff;
+  padding: 10px 15px;
+}
+
+.attach-file:hover{
+  cursor: pointer;
+  background-color: #920101;
+  transition: ease-in-out 0.2s;
+}
+
+.fa-folder-open{
+  margin-right: 10px;
+}
+
+.selected{
+  background-color: #c8e6c9;
+  border: 2px solid #920101;
 }
