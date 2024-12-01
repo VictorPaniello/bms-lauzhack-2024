@@ -1,3 +1,17 @@
+This project is a Next.js application developed to display interactive time series forecasting for the sales data of Bristol Myers Squibb. The primary dataset used for this analysis is INNOVIX_Floresland.xlsx.
+
+First of all, we have made an intense preprocessing with Python in order to have all the data in one sheet, instead of having one variable per sheet. With this preprocessing, we have used a KNN in order to impute missing values. Then, three distinct models were explored to forecast the time series:
+
+- Long Short-Term Memory (LSTM): A neural network-based approach suited for sequential data.
+- Exponential Smoothing State Space Model (ETS): A robust statistical method for time series analysis.
+- Autoregressive Integrated Moving Average (ARIMA): A widely-used statistical model for forecasting time-dependent data.
+
+After evaluating the performance of these models, ARIMA emerged as the most accurate model. It was subsequently chosen for forecasting the sales data.
+
+We also have made a webpage in Next.js in where we can upload our data and it will forecast it automatically by connecting to a Node.js backend. You can also change data interactively in the page, and arrange some parameters. It is visually attractive and simple. 
+
+It is a user-friendly interface, designed to be visually attraactive and straightforward.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
