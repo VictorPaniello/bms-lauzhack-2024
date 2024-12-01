@@ -127,14 +127,16 @@ header p {
 .charts-link{
 display: flex;
 justify-content: center;
-padding: 10px;
+padding: 10px 20px;
 margin-bottom: 10px;
-border: 3px solid #920101;
-border-radius: 5px;
+border-radius: 10px;
+background-color: #6d0000;
+font-family: monospace;
+width: 100%
 }
 
 .charts-link:hover{
-  background-color: #6d0000;
+  background-color: #920101;
   color: #fff;
   transition: ease-in-out 0.2s;
 }
