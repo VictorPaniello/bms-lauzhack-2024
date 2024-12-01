@@ -114,8 +114,6 @@ header p {
 .chart-container {
   margin: 2rem 0;
   padding: 1.5rem;
-  background-color: #e8f5e9; /* Very light green for a fresh background */
-  border: 2px solid #c8e6c9; /* Slightly darker green border */
   border-radius: 8px;
 }
 

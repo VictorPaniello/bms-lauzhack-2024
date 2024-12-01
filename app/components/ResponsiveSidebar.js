@@ -28,23 +28,15 @@ export default function FixedSidebar({ children, sidebarContent }) {
       {/* Sidebar fija */}
       <div className="fixed-sidebar">
         <div className="sidebar-content">
+        <img src="/Bristol-Myers_Squibb_logo.png" className="bms-img"/>
+
             <br />
             <br />
             <br />
           <h2>Filters</h2>
           {/* Collapsible Sections */}
           <CollapsibleSection title="Ex-factory Volumes" className="collap-section">
-            <ul>
-              <li>
-                <input type="checkbox" /> Categoría 1
-              </li>
-              <li>
-                <input type="checkbox" /> Categoría 2
-              </li>
-              <li>
-                <input type="checkbox" /> Categoría 3
-              </li>
-            </ul>
+            <p>No filter option available</p>
           </CollapsibleSection>
           <CollapsibleSection title="Demand Volumes" className="collap-section">
             <ul>

@@ -12,7 +12,7 @@ import {faHouse, faPenToSquare} from "@fortawesome/free-solid-svg-icons";
 import ResponsiveSidebar from "../components/ResponsiveSidebar";
 import Chart from "../components/Chart";
 
-export default function Chart(){
+export default function ChartPage(){
 
 
     return(
@@ -32,7 +32,6 @@ export default function Chart(){
                         </a>
                     </button>
                 </div>
-            <img src="/Bristol-Myers_Squibb_logo.png" className="bms-img"/>
             </div>
                 <ResponsiveSidebar
       sidebarContent={
@@ -50,7 +49,8 @@ export default function Chart(){
         </div>
       }
     >
-      <div className='chart-content'>
+      <div className='chart-content chart-content-box'>
+        <h1 className='chart-name'>Predictions</h1>
           <Chart/>
       </div>
     </ResponsiveSidebar>

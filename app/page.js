@@ -87,7 +87,7 @@ export default function Home() {
         </div>
 
         <p>Click the button below to get started:</p>
-        <Link href="/table" className="charts-link">
+        <Link href="/chart" className="charts-link">
           View our Charts!
         </Link>
       </main>
