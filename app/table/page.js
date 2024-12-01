@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import "../table.css"; // Import the CSS file
+import "../table.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 config.autoAddCss = false;
@@ -16,15 +16,14 @@ export default function About() {
     const storedCsv = localStorage.getItem("csvData");
     if (storedCsv) {
       const rows = storedCsv.split("\n").map((row) => row.split(","));
-      setCsvData(rows); // Load CSV data into state
+      setCsvData(rows);
     }
   }, []);
 
   const handleCellChange = (rowIndex, colIndex, value) => {
     const updatedCsv = [...csvData];
-    updatedCsv[rowIndex][colIndex] = value; // Update the cell value
+    updatedCsv[rowIndex][colIndex] = value; 
 
-    // Add the "edited-cell" class dynamically
     const cell = document.querySelector(
       `#cell-${rowIndex}-${colIndex}`
     );
@@ -35,11 +34,32 @@ export default function About() {
     setCsvData(updatedCsv);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const csvString = csvData.map((row) => row.join(",")).join("\n");
-    localStorage.setItem("csvData", csvString); // Save updated CSV data to localStorage
-    alert("CSV data saved successfully!");
+    localStorage.setItem("csvData", csvString);
+  
+    try {
+      const response = await fetch("http://localhost:5000/run-prediction", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ csvData: csvString }),
+      });
+
+      console.log(response)
+  
+      if (response.ok) {
+        alert("CSV data saved and prediction updated successfully!");
+      } else {
+        alert("Failed to update prediction. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred while updating the prediction.");
+    }
   };
+  
 
   return (
     <div className="about-container">

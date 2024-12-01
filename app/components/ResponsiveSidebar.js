@@ -8,12 +8,10 @@ function CollapsibleSection({ title, children }) {
 
   return (
     <div className="collapsible-section">
-      {/* Título del filtro */}
       <button className="section-title" onClick={() => setIsOpen(!isOpen)}>
         {title} {isOpen ? "▲" : "▼"}
       </button>
 
-      {/* Contenido colapsable */}
       {isOpen && <div className="section-content">{children}</div>}
     </div>
   );
@@ -22,10 +20,8 @@ function CollapsibleSection({ title, children }) {
 export default function FixedSidebar({ children, sidebarContent }) {
   return (
     <div className="fixed-layout">
-      {/* Contenido principal */}
       <div className="main-content">{children}</div>
 
-      {/* Sidebar fija */}
       <div className="fixed-sidebar">
         <div className="sidebar-content">
         <img src="/Bristol-Myers_Squibb_logo.png" className="bms-img"/>
@@ -34,7 +30,6 @@ export default function FixedSidebar({ children, sidebarContent }) {
             <br />
             <br />
           <h2>Filters</h2>
-          {/* Collapsible Sections */}
           <CollapsibleSection title="Ex-factory Volumes" className="collap-section">
             <p>No filter option available</p>
           </CollapsibleSection>

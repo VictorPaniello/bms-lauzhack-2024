@@ -1,10 +1,9 @@
-/* Reset and Base Styles */
 div {
   font-family: monospace; 
   margin: 0;
   padding: 0;
-  background-color: #f8fdfb; /* Soft greenish white for a fresh look */
-  color: #333; /* Neutral dark gray for readability */
+  background-color: #f8fdfb; 
+  color: #333;
   line-height: 1.6;
 }
 
@@ -26,11 +25,11 @@ header > p{
 p {
   margin-bottom: 1rem;
   color: #555;
-  font-size: 16px; /* Subtle gray for supporting text */
+  font-size: 16px;
 }
 
 a {
-  color: #00796b; /* Teal link color */
+  color: #00796b;
   text-decoration: none;
 }
 
@@ -38,19 +37,17 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Layout */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
 }
 
-/* Buttons */
 button,
 a.button {
   display: inline-block;
   padding: 0.75rem 1.5rem;
-  background-color: #2e7d32; /* Vibrant green for CTAs */
+  background-color: #2e7d32;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -62,22 +59,20 @@ a.button {
 
 button:hover,
 a.button:hover {
-  background-color: #1b5e20; /* Darker green for hover effect */
+  background-color: #1b5e20;
 }
 
-/* Footer */
 footer {
   text-align: center;
   padding: 1rem;
-  background-color: #e0f2f1; /* Light teal */
+  background-color: #e0f2f1;
   color: #004d40;
   font-size: 0.9rem;
   border-radius: 5px;
 }
 
-/* Health-Specific Imagery */
 header {
-  background-color: #6d0000; /* Soft green header */
+  background-color: #6d0000; 
   padding: 2rem 1rem;
   text-align: center;
   color: white;
@@ -95,7 +90,6 @@ header p {
   margin: 0.5rem 0 0;
 }
 
-/* Card Styles */
 .card {
   background: white;
   border-radius: 8px;
@@ -110,14 +104,12 @@ header p {
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* Chart Container */
 .chart-container {
   margin: 2rem 0;
   padding: 1.5rem;
   border-radius: 8px;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   h1 {
     font-size: 2rem;

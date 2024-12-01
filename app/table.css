@@ -3,21 +3,18 @@
     font-family: monospace;
   }
   
-  /* Header container */
   .header {
     display: flex;
-    justify-content: space-between; /* Align buttons on the left, image on the right */
-    align-items: center; /* Vertically align items */
+    justify-content: space-between; 
+    align-items: center; 
     margin-bottom: 20px;
   }
   
-  /* Left buttons container */
   .left-buttons {
     display: flex;
-    gap: 10px; /* Add spacing between buttons */
+    gap: 10px; 
   }
   
-  /* Home and Back Buttons */
   .home-button,
   .back-button {
     padding: 10px 20px;
@@ -42,7 +39,6 @@
     transition: ease-in-out 0.2s;
   }
   
-  /* Image styling */
   .bms-img {
     width: 300px;
     height: auto;
@@ -95,9 +91,8 @@
     font: inherit;
   }
   
-  /* Highlight edited cells */
   .edited-cell {
-    background-color: #ffffcc; /* Light yellow for edited cells */
+    background-color: #ffffcc;
     transition: background-color 0.3s ease-in-out;
   }
   
@@ -117,4 +112,5 @@
     background-color: #920101;
     transition: ease-in-out 0.2s;
   }
+  
   

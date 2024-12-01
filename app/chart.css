@@ -5,14 +5,14 @@
 
 .header {
     display: flex;
-    justify-content: space-between; /* Align buttons on the left, image on the right */
-    align-items: center; /* Vertically align items */
+    justify-content: space-between; 
+    align-items: center; 
     margin-bottom: 20px;
   }
 
 .left-buttons {
     display: flex;
-    gap: 10px; /* Add spacing between buttons */
+    gap: 10px; 
   }
 
   .home-button,
@@ -53,14 +53,12 @@
     width: 70%;
   }
 
-  /* Container for date pickers */
 .date-picker-container {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Labels for date pickers */
 .date-picker-container label {
   font-family: Arial, sans-serif;
   font-size: 16px;
@@ -71,7 +69,6 @@
 
 }
 
-/* Style for the date input fields */
 .date-picker-container input[type="date"] {
   padding: 10px;
   border: 1px solid #ccc;
@@ -83,22 +80,19 @@
   margin-top: 10px;
 }
 
-/* Date input focus effect */
 .date-picker-container input[type="date"]:focus {
   outline: none;
   border-color: #6d0000;
   box-shadow: 0px 0px 4px rgba(109, 0, 0, 0.4);
 }
 
-/* Date input hover effect */
 .date-picker-container input[type="date"]:hover {
   border-color: #6d0000;
 }
 
-/* Responsive design: Adjusts layout for small screens */
 @media (max-width: 768px) {
   .date-picker-container {
     flex-direction: column;
-    gap: 10px; /* Reduce gap between fields */
+    gap: 10px;
   }
 }

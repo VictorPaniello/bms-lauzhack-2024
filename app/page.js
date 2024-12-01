@@ -14,25 +14,31 @@ import React, { useState, useRef } from "react";
 export default function Home() {
   const [fileAttached, setFileAttached] = useState(false);
   const [fileName, setFileName] = useState("");
-  const fileInputRef = useRef(null); // Use a React ref for the file input
+  const fileInputRef = useRef(null); 
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
 
     if (file) {
-      setFileName(file.name); // Update the file name in state
+      setFileName(file.name); 
       setFileAttached(true);
 
       const reader = new FileReader();
 
-      // Read the file as text
       reader.onload = () => {
-        // Save the file content to local storage
         localStorage.setItem("csvData", reader.result);
+        const blob = new Blob([reader.result], { type: "text/csv" });
+        const link = document.createElement("a");
+        link.hidden = true;
+        link.href = URL.createObjectURL(blob);
+        link.download = "downloaded_data.csv";
+        link.click();
+        
+
         console.log("CSV content saved to localStorage:", reader.result);
       };
 
-      reader.readAsText(file); // Read file as text for CSV files
+      reader.readAsText(file); 
     } else {
       setFileName("");
       setFileAttached(false);

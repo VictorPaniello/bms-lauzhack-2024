@@ -37,6 +37,8 @@ coverage/
 # MacOS system files
 .DS_Store
 
+*.csv
+
 # Optional: Lock files (if you use one package manager only)
 # Uncomment the one you don’t use
 # yarn.lock

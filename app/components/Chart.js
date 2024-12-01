@@ -14,18 +14,11 @@ ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip)
 const Chart = () => {
   const [chartData, setChartData] = useState(null);
   const [filteredData, setFilteredData] = useState(null);
+  const [predictionData, setPredictionData] = useState(null);
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
-  const [tooltip, setTooltip] = useState({
-    visible: false,
-    value: null,
-    date: null,
-    x: 0,
-    y: 0,
-  });
   const chartRef = useRef(null);
 
-  // Load the initial CSV data
   useEffect(() => {
     const csvData = localStorage.getItem('csvData');
 
@@ -40,11 +33,31 @@ const Chart = () => {
       });
 
       setChartData(dataPoints);
-      setFilteredData(dataPoints); // Initially, show all data
+      setFilteredData(dataPoints);
     }
   }, []);
 
-  // Apply the date filter whenever `fromDate` or `toDate` changes
+  useEffect(() => {
+    const fetchPredictions = async () => {
+      const response = await fetch('/future_predictions.csv');
+      const text = await response.text();
+      const rows = text.split('\n').filter((row) => row.trim() !== '');
+      rows.shift();
+      const predictions = rows.map((row) => {
+        const [month, year, prediction] = row.split(',');
+        const date = new Date(year, month - 1, 1);
+        return {
+          date: date,
+          value: parseFloat(prediction.split('\r')[0]).toFixed(0),
+        };
+      });
+
+      setPredictionData(predictions);
+    };
+
+    fetchPredictions();
+  }, []);
+
   useEffect(() => {
     if (chartData) {
       const filtered = chartData.filter((point) => {
@@ -57,56 +70,53 @@ const Chart = () => {
     }
   }, [fromDate, toDate, chartData]);
 
-  const handleChartClick = (event) => {
-    if (!chartRef.current) return;
-
-    const chart = chartRef.current;
-    const elements = chart.getElementsAtEventForMode(
-      event,
-      'nearest',
-      { intersect: true },
-      false
-    );
-
-    if (elements.length > 0) {
-      const element = elements[0];
-      const datasetIndex = element.datasetIndex;
-      const index = element.index;
-
-      const value = filteredData[index].value;
-      const date = filteredData[index].date.toLocaleString('default', { month: 'short', year: 'numeric' }).toUpperCase();
-
-      const { x, y } = element.element;
-
-      setTooltip({
-        visible: true,
-        value: new Intl.NumberFormat('en-DE').format(value),
-        date: date,
-        x: x,
-        y: y,
-      });
-    } else {
-      setTooltip({ visible: false, value: null, date: null, x: 0, y: 0 });
-    }
-  };
-
-  if (!filteredData) {
+  if (!filteredData || !predictionData) {
     return <p>Loading...</p>;
   }
 
-  const labels = filteredData.map((point) =>
-    point.date.toLocaleString('default', { month: 'short', year: 'numeric' }).toUpperCase()
-  );
-  const values = filteredData.map((point) => point.value);
+  const allDates = [...filteredData, ...predictionData]
+    .map((point) => point.date)
+    .sort((a, b) => a - b);
+
+  const labels = [...new Set(allDates.map((date) =>
+    date.toLocaleString('default', { month: 'short', year: 'numeric' }).toUpperCase()
+  ))];
+
+  const baseDataValues = labels.map((label) => {
+    const dataPoint = filteredData.find(
+      (point) =>
+        point.date.toLocaleString('default', { month: 'short', year: 'numeric' }).toUpperCase() ===
+        label
+    );
+    return dataPoint ? dataPoint.value : null;
+  });
+
+  const predictionDataValues = labels.map((label) => {
+    const dataPoint = predictionData.find(
+      (point) =>
+        point.date.toLocaleString('default', { month: 'short', year: 'numeric' }).toUpperCase() ===
+        label
+    );
+    return dataPoint ? dataPoint.value : null;
+  });
 
   const data = {
     labels,
     datasets: [
       {
-        label: 'Time Series Data',
-        data: values,
+        label: 'Base Data',
+        data: baseDataValues,
         borderColor: 'rgba(75,192,192,1)',
         backgroundColor: 'rgba(75,192,192,0.2)',
+        tension: 0.1,
+        pointRadius: 5,
+      },
+      {
+        label: 'Predictions',
+        data: predictionDataValues,
+        borderColor: 'rgba(255,99,132,1)',
+        backgroundColor: 'rgba(255,99,132,0.2)',
+        borderDash: [5, 5],
         tension: 0.1,
         pointRadius: 5,
       },
@@ -115,11 +125,10 @@ const Chart = () => {
 
   return (
     <div className="chart-content" style={{ position: 'relative' }}>
-      {/* Date Filters */}
       <div style={{ display: 'flex', marginBottom: '20px' }}>
         <div className="date-picker-container">
           <label>
-            <b>From Date:</b> 
+            <b>From Date:</b>
             <input
               type="date"
               value={fromDate}
@@ -129,8 +138,8 @@ const Chart = () => {
           </label>
         </div>
         <div className="date-picker-container">
-          <label style={{marginLeft: '10px'}}>
-            <b>To Date:</b> 
+          <label style={{ marginLeft: '10px' }}>
+            <b>To Date:</b>
             <input
               type="date"
               value={toDate}
@@ -141,20 +150,23 @@ const Chart = () => {
         </div>
       </div>
 
-      {/* Chart */}
       <Line
         ref={chartRef}
         data={data}
         options={{
           plugins: {
             tooltip: {
-              enabled: false, // Disable default tooltip
+              enabled: true,
+              callbacks: {
+                title: (tooltipItems) => tooltipItems[0].label,
+                label: (tooltipItem) => `Value: ${tooltipItem.raw}`,
+              },
             },
           },
           elements: {
             point: {
-              hoverBackgroundColor: 'rgba(75,192,192,1)', // Highlight point on hover
-              hoverBorderColor: 'rgba(0,0,0,0.8)', // Add border on hover
+              hoverBackgroundColor: 'rgba(75,192,192,1)',
+              hoverBorderColor: 'rgba(0,0,0,0.8)',
             },
           },
           interaction: {
@@ -168,45 +180,8 @@ const Chart = () => {
               event.native.target.style.cursor = 'default';
             }
           },
-          onClick: handleChartClick,
         }}
       />
-
-      {/* Tooltip */}
-      {tooltip.visible && (
-        <div
-          className="tooltip"
-          style={{
-            position: 'absolute',
-            left: tooltip.x,
-            top: tooltip.y - 10, // Adjust tooltip to appear above the point
-            backgroundColor: 'white',
-            border: '1px solid #ccc',
-            padding: '10px',
-            borderRadius: '8px',
-            pointerEvents: 'none',
-            transform: 'translate(-50%, -100%)',
-            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-            textAlign: 'center',
-          }}
-        >
-          <div style={{ fontWeight: 'bold', marginBottom: '5px' }}>{tooltip.date}</div>
-          <div>{`Value: ${tooltip.value}`}</div>
-          <div
-            style={{
-              position: 'absolute',
-              bottom: '-10px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: '0',
-              height: '0',
-              borderLeft: '6px solid transparent',
-              borderRight: '6px solid transparent',
-              borderTop: '10px solid white',
-            }}
-          ></div>
-        </div>
-      )}
     </div>
   );
 };

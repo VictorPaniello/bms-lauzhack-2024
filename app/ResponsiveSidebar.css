@@ -1,16 +1,13 @@
-/* Layout container */
 .fixed-layout {
     display: flex;
   }
   
-  /* Main content */
   .main-content {
     flex: 1;
     padding: 20px;
     overflow-y: auto;
   }
   
-  /* Sidebar */
   .fixed-sidebar {
     width: 500px;
     background-color: #f5f5f5;
@@ -24,12 +21,10 @@
     bottom: 0;
   }
   
-  /* Sidebar content */
   .sidebar-content {
     font-family: monospace;
   }
   
-  /* Collapsible section */
   .collapsible-section {
     margin-bottom: 20px;
   }
