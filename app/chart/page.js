@@ -10,6 +10,7 @@ import {faHouse, faPenToSquare} from "@fortawesome/free-solid-svg-icons";
 
 
 import ResponsiveSidebar from "../components/ResponsiveSidebar";
+import Chart from "../components/Chart";
 
 export default function Chart(){
 
@@ -50,15 +51,7 @@ export default function Chart(){
       }
     >
       <div className='chart-content'>
-        <h1>Contenido Principal</h1>
-        <p>
-          Este es el contenido principal de la página. Puedes agregar todo lo
-          que desees aquí.
-        </p>
-        <p>
-          La barra lateral permanecerá fija en el lado derecho, incluso cuando
-          hagas scroll.
-        </p>
+          <Chart/>
       </div>
     </ResponsiveSidebar>
         </div>
