@@ -14,6 +14,8 @@ import React, { useState, useRef } from "react";
 export default function Home() {
   const [fileAttached, setFileAttached] = useState(false);
   const [fileName, setFileName] = useState("");
+  const [csvData, setCsvData] = useState([]);
+
   const fileInputRef = useRef(null); 
 
   const handleFileChange = (event) => {
@@ -27,14 +29,6 @@ export default function Home() {
 
       reader.onload = () => {
         localStorage.setItem("csvData", reader.result);
-        const blob = new Blob([reader.result], { type: "text/csv" });
-        const link = document.createElement("a");
-        link.hidden = true;
-        link.href = URL.createObjectURL(blob);
-        link.download = "downloaded_data.csv";
-        link.click();
-        
-
         console.log("CSV content saved to localStorage:", reader.result);
       };
 
@@ -43,6 +37,40 @@ export default function Home() {
       setFileName("");
       setFileAttached(false);
     }
+  };
+
+  const handleSave = async () => {
+    const csvData = localStorage.getItem("csvData")
+    if (!csvData) {
+      alert("No CSV data found to save.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/run-prediction", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ csvData }),
+      });
+
+  
+      if (response.ok) {
+        const updatedResponse = await fetch("updated_data.csv");
+        if (updatedResponse.ok) {
+          const updatedCsvNew = await updatedResponse.text();
+          localStorage.setItem("csvData", updatedCsvNew);
+          alert("CSV data saved and prediction updated successfully!");
+        }
+      } else {
+        alert("Failed to update prediction. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred while updating the prediction.");
+    }
+    window.location.href = "/chart"
   };
 
   return (
@@ -93,9 +121,9 @@ export default function Home() {
         </div>
 
         <p>Click the button below to get started:</p>
-        <Link href="/chart" className="charts-link">
+        <button onClick={handleSave} className="charts-link">
           View our Charts!
-        </Link>
+        </button>
       </main>
 
       <footer>

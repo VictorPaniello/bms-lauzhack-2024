@@ -30,7 +30,7 @@ def treat_missing_values(df, method):
         strong_pairs = sorted_pairs[(sorted_pairs < 1.0) & (sorted_pairs > 0.7)]
         print(strong_pairs)
 
-        df = pd.concat([numeric_df, df[non_numeric_columns].reset_index(drop=True)], axis=1)
+        df = pd.concat([df[non_numeric_columns].reset_index(drop=True), numeric_df], axis=1)
     
     elif method == 'fillna':
         columns_with_missings = df.columns[df.isnull().any()]
@@ -51,6 +51,8 @@ df = pd.read_csv('public/updated_data.csv')
 
 df = treat_missing_values(df, 'KNN')
 #df = treat_missing_values(df, 'fillna')
+
+df.to_csv('public/updated_data.csv', index=False)
 
 # Normalization of the target variable
 scaler = MinMaxScaler()
@@ -98,7 +100,7 @@ for epoch in range(num_epochs):
     if epoch % 50 == 0:
         print(f'Epoch {epoch}: Loss = {loss.item()}')
 
-forecast_steps = 12
+forecast_steps = 16
 input_sequence = X[-1].unsqueeze(0).clone()
 future_predictions = []
 
@@ -149,7 +151,7 @@ print(f"R2 Score: {r2:.2f}")'''
 
 #EXPONENTIAL SMOOTHING MODEL
 ets_model = ExponentialSmoothing(df['volume_factory_sales'], seasonal = 'add', trend = 'add', seasonal_periods = 12).fit()
-ets_forecast = ets_model.forecast(12)
+ets_forecast = ets_model.forecast(16)
 
 #plt.figure(figsize=(12, 6))
 plt.plot(df.index,scaler.inverse_transform(df[['volume_factory_sales']]),  label="Historical Data")
@@ -175,7 +177,7 @@ results_table.append(
 
 #ARIMA (optimized)
 sarima_model = SARIMAX(df['volume_factory_sales'], order=(1, 1, 1), seasonal_order=(1, 1, 1, 12)).fit(disp=False)
-sarima_forecast = sarima_model.forecast(steps=12)
+sarima_forecast = sarima_model.forecast(steps=16)
 
 plt.plot(df.index, scaler.inverse_transform(df[['volume_factory_sales']]), label="Datos históricos")
 plt.plot(future_dates, scaler.inverse_transform(np.array(sarima_forecast.values).reshape(-1, 1)), label="ARIMA predictions", linestyle="--")

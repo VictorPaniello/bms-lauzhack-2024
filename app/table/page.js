@@ -47,10 +47,14 @@ export default function About() {
         body: JSON.stringify({ csvData: csvString }),
       });
 
-      console.log(response)
   
       if (response.ok) {
-        alert("CSV data saved and prediction updated successfully!");
+        const updatedResponse = await fetch("updated_data.csv");
+        if (updatedResponse.ok) {
+          const updatedCsvNew = await updatedResponse.text();
+          localStorage.setItem("csvData", updatedCsvNew);
+          alert("CSV data saved and prediction updated successfully!");
+        }
       } else {
         alert("Failed to update prediction. Please try again.");
       }

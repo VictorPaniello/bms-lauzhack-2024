@@ -33,19 +33,20 @@ const Chart = () => {
       });
 
       setChartData(dataPoints);
-      setFilteredData(dataPoints);
+      setFilteredData(dataPoints); // Initially, show all data
     }
   }, []);
 
+  // Fetch the prediction data
   useEffect(() => {
     const fetchPredictions = async () => {
       const response = await fetch('/future_predictions.csv');
       const text = await response.text();
       const rows = text.split('\n').filter((row) => row.trim() !== '');
-      rows.shift();
+      rows.shift(); // Remove header row
       const predictions = rows.map((row) => {
         const [month, year, prediction] = row.split(',');
-        const date = new Date(year, month - 1, 1);
+        const date = new Date(year, month - 1, 1); // Create date from month and year
         return {
           date: date,
           value: parseFloat(prediction.split('\r')[0]).toFixed(0),
@@ -125,6 +126,7 @@ const Chart = () => {
 
   return (
     <div className="chart-content" style={{ position: 'relative' }}>
+      {/* Date Filters */}
       <div style={{ display: 'flex', marginBottom: '20px' }}>
         <div className="date-picker-container">
           <label>
@@ -133,17 +135,6 @@ const Chart = () => {
               type="date"
               value={fromDate}
               onChange={(e) => setFromDate(e.target.value)}
-              style={{ marginLeft: '10px' }}
-            />
-          </label>
-        </div>
-        <div className="date-picker-container">
-          <label style={{ marginLeft: '10px' }}>
-            <b>To Date:</b>
-            <input
-              type="date"
-              value={toDate}
-              onChange={(e) => setToDate(e.target.value)}
               style={{ marginLeft: '10px' }}
             />
           </label>
