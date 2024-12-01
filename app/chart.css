@@ -1,0 +1,45 @@
+.header {
+    display: flex;
+    justify-content: space-between; /* Align buttons on the left, image on the right */
+    align-items: center; /* Vertically align items */
+    margin-bottom: 20px;
+  }
+
+.left-buttons {
+    display: flex;
+    gap: 10px; /* Add spacing between buttons */
+  }
+
+  .home-button,
+  .back-button {
+    padding: 10px 20px;
+    background-color: #6d0000;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    font-family: monospace;
+  }
+
+  .home-button > a,
+  .back-button > a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .home-button:hover,
+  .back-button:hover {
+    background-color: #920101;
+    transition: ease-in-out 0.2s;
+  }
+
+  .bms-img {
+    width: 300px;
+    height: auto;
+    z-index: 2;
+  }
+
+  .chart-content{
+    font-family: monospace;
+  }

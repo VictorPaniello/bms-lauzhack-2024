@@ -8,10 +8,16 @@ div {
   line-height: 1.6;
 }
 
-h1, h2, h3 {
-  color: #ffffff; /* Calming green */
+.ex-fac-vol{
+  color: #000;
+}
+
+.container > h1{
+  color: #fff;
   margin-bottom: 0.5rem;
 }
+
+
 
 header > p{
   color: #fff;

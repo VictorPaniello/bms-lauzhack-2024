@@ -1,0 +1,120 @@
+.about-container {
+    padding: 20px;
+    font-family: monospace;
+  }
+  
+  /* Header container */
+  .header {
+    display: flex;
+    justify-content: space-between; /* Align buttons on the left, image on the right */
+    align-items: center; /* Vertically align items */
+    margin-bottom: 20px;
+  }
+  
+  /* Left buttons container */
+  .left-buttons {
+    display: flex;
+    gap: 10px; /* Add spacing between buttons */
+  }
+  
+  /* Home and Back Buttons */
+  .home-button,
+  .back-button {
+    padding: 10px 20px;
+    background-color: #6d0000;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    font-family: monospace;
+  }
+  
+  .home-button > a,
+  .back-button > a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .home-button:hover,
+  .back-button:hover {
+    background-color: #920101;
+    transition: ease-in-out 0.2s;
+  }
+  
+  /* Image styling */
+  .bms-img {
+    width: 300px;
+    height: auto;
+    justify-content: flex-end;
+  }
+  
+  .table-container {
+    overflow: auto;
+    max-height: 700px;
+    border: 1px solid #ccc;
+  }
+  
+  .csv-table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .csv-table th,
+  .csv-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .sticky-header {
+    position: sticky;
+    top: 0;
+    background-color: #6d0000;
+    color: white;
+    z-index: 2;
+  }
+  
+  .sticky-column {
+    position: sticky;
+    left: 0;
+    background-color: #6d0000;
+    color: white;
+    z-index: 1;
+  }
+  
+  .sticky-header.sticky-column {
+    z-index: 3;
+  }
+  
+  .editable-cell {
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font: inherit;
+  }
+  
+  /* Highlight edited cells */
+  .edited-cell {
+    background-color: #ffffcc; /* Light yellow for edited cells */
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .save-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #6d0000;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    font-family: monospace;
+  }
+  
+  .save-button:hover {
+    background-color: #920101;
+    transition: ease-in-out 0.2s;
+  }
+  
